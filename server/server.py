@@ -1,28 +1,22 @@
-from flask import Flask, request, jsonify
-from words import WordsDB
+from flask import Flask, request
+from words import WordDB
 
 app = Flask(__name__)
-db = WordsDB("words.db")  
 
-@app.route('/words', methods=['GET'])
-def get_words():
-    words = db.get_all_words()
-    return jsonify(words), 200
 
-@app.route('/words', methods=['POST'])
-def add_word():
-    data = request.json
+@app.route("/words", methods=["POST"])
+def create_word():
+    print("the request data is: ", request.form)
+    db = WordDB("words_db.db")
+    print("the request data is: ", request.form)
+    word = request.form['word']
+    origin = request.form['origin']
+    definition = request.form['definition']
+    db.postWord(word, origin, definition)
+    return "Created", 201, {"Access-Control-Allow-Origin": "*"}
 
-    word = data.get('word')
-    language = data.get('language')
-    definition = data.get('definition')
-    user_translation = data.get('user_translation')
+def run():
+    app.run(port=8080)
 
-    if not all([word, language, definition, user_translation]):
-        return jsonify({"error": "Missing required fields"}), 400
-
-    db.add_word(word, language, definition, user_translation)
-    return jsonify({"message": "Word added successfully!"}), 201
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    run()

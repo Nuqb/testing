@@ -1,26 +1,28 @@
 import sqlite3
-from datetime import datetime
 
 def dict_factory(cursor, row):
-    fields = [column[0] for column in cursor.description]
-    return {fields[i]: row[i] for i in range(len(fields))}
+    fields = []
 
-class WordsDB:
+    for column in cursor.description:
+        fields.append(column[0])
+    
+    result_dict = {}
+    for i in range(len(fields)):
+        result_dict[fields[i]] = row[i]
+
+    return result_dict
+
+class WordDB:
+
     def __init__(self, filename):
         self.connection = sqlite3.connect(filename)
         self.connection.row_factory = dict_factory
         self.cursor = self.connection.cursor()
 
-    def get_all_words(self):
-        self.cursor.execute("SELECT * FROM words")
-        return self.cursor.fetchall()
-
-    def get_word(self, word_id):
-        self.cursor.execute("SELECT * FROM words WHERE id = ?", (word_id,))
-        return self.cursor.fetchone()
-
-    def add_word(self, word, language, definition, user_translation):
-        date_added = datetime.now().isoformat()  
-        data = (word, language, definition, user_translation, date_added)
-        self.cursor.execute( "INSERT INTO words (word, language, definition, user_translation, date_added) VALUES (?, ?, ?, ?, ?)", data )
+    def postWord(self, word, origin, definition):
+        data = [word, origin, definition]
+        self.cursor.execute("INSERT INTO favoritewords (word, origin, definition) VALUES (?, ?, ?)", data)
         self.connection.commit()
+
+
+# CREATE TABLE favoritewords (id INTEGER PRIMARY KEY, word TEXT, origin TEXT, definition TEXT);
