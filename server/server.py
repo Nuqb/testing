@@ -40,7 +40,7 @@ def update_word(word_id):
 def get_word():
     db = WordDB("words_db.db")
     WORDS = db.getWords()
-    return WORDS, 200, {"Acces-Control-Allow_origin" : "*"}
+    return WORDS, 200, {"Access-Control-Allow-Origin": "*"}
 
 @app.route("/words/<int:word_id>", methods=["DELETE"])
 def delete_word(word_id):
