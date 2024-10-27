@@ -1,3 +1,5 @@
+console.log("aura maxxing")
+
 let inputWord = document.getElementById("input-word");
 let inputLanguageOrigin = document.getElementById("input-language-origin");
 let wordDefinition = document.getElementById("word-definition");
