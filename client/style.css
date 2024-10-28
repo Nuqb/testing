@@ -1,0 +1,58 @@
+* {
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+}
+
+body {
+    background-color: #FFB3B3;
+}
+
+#word-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#word-form * {
+    margin: 5px;
+}
+
+input {
+    padding: 10px;
+    color: white;
+    background-color: #d48c8c;
+    border: #975456;
+}
+
+input::placeholder {
+    color: white;
+}
+
+textarea {
+    padding: 10px;
+    color: white;
+    background-color: #d48c8c;
+}
+
+textarea::placeholder {
+    color: white;
+}
+
+button {
+    color: white;
+    background-color: #ab6668;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.1);
+  }
+
+#edit-word-button {
+    margin: 5px;
+}
+
+#delete-word-button {
+    margin: 5px;
+}

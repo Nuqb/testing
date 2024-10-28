@@ -2,20 +2,20 @@ console.log("aura maxxing")
 
 let inputWord = document.getElementById("input-word");
 let inputLanguageOrigin = document.getElementById("input-language-origin");
-let wordDefinition = document.getElementById("word-definition");
+let inputWordDefinition = document.getElementById("input-word-definition");
 let wordWrapper = document.querySelector("section");
 let addWordButton = document.getElementById("add-word-button");
-let saveWordButton = document
+let saveWordButton = document.getElementById("save-word-button");
 let editId = null;
 
 function addTheWord(data) {
-    let theWord = document.createElement("h3")
-    let wordOrigin = document.createElement("p")
-    let wordDefinition = document.createElement("p")
+    let theWord = document.createElement("h3");
+    let wordOrigin = document.createElement("p");
+    let wordDefinition = document.createElement("p");
 
-    theWord.textContent = data["word"]
-    wordOrigin.textContent = data["origin"]
-    wordDefinition.textContent = data["definition"]
+    theWord.textContent = "word: " + data["word"]
+    wordOrigin.textContent = "language: " + data["origin"]
+    wordDefinition.textContent = "definition: " + data["definition"]
 
     wordWrapper.appendChild(theWord);
     wordWrapper.appendChild(wordOrigin);
@@ -31,14 +31,14 @@ function addTheWord(data) {
         console.log("edit button clicked on: ", data["id"])
         inputWord.value = data["word"];
         inputLanguageOrigin.value = data["origin"];
-        wordDefinition.value = data["definition"];
+        inputWordDefinition.value = data["definition"];
         editId = data["id"];
     }
 
     saveWordButton.onclick = function() {
-        let editData = "word="+encodeURIComponent(inputWord.value) + "&origin="+encodeURIComponent(inputLanguageOrigin.value) +"&definition="+encodeURIComponent(wordDefinition.value);
+        let editData = "word="+encodeURIComponent(inputWord.value) + "&origin="+encodeURIComponent(inputLanguageOrigin.value) +"&definition="+encodeURIComponent(wordDefinition.value)
 
-        fetch('http://localhost:8080/words/${editId}', {
+        fetch(`http://localhost:8080/words/${editId}`, {
             method: "PUT",
             body: editData,
             headers: {
@@ -50,19 +50,20 @@ function addTheWord(data) {
             loadWordsFromServer()
             inputWord.value = ""
             inputLanguageOrigin.value = ""
-            definition.value = ""
+            wordDefinition.value = ""
         })
     }
     deleteButton.onclick = function(){
         if(confirm("Are you sure you want to delete the word?")){
 
-            let deleteID = data["id"]
-            fetch('http://localhost:8080/words/${deleteID}', {
+            let deleteId = data["id"]
+            fetch(`http://localhost:8080/words/${deleteId}`, {
             method: "DELETE",
+            body: "",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             }
-        }).then(function(response) {
+        }).then(function(response){
             console.log("response: ", response)
             clearLoadedWords()
             loadWordsFromServer()
@@ -72,12 +73,11 @@ function addTheWord(data) {
 
     wordWrapper.appendChild(editButton);
     wordWrapper.appendChild(deleteButton);
-    wordWrapper.apppendChild(document.createElement("hr"));
 }
 
 function addNewWord() {
 
-    let data = "word="+encodeURIComponent(inputWord.value) + "&origin="+encodeURIComponent(inputLanguageOrigin.value) +"&definition="+encodeURIComponent(wordDefinition.value);
+    let data = "word="+encodeURIComponent(inputWord.value) + "&origin="+encodeURIComponent(inputLanguageOrigin.value) +"&definition="+encodeURIComponent(inputWordDefinition.value);
 
     console.log(data)
     fetch("http://localhost:8080/words", {
@@ -91,7 +91,7 @@ function addNewWord() {
         console.log("response", response);
         inputWord.value = "";
         inputLanguageOrigin.value = "";
-        wordDefinition.value = "";
+        inputWordDefinition.value = "";
     })
 }
 

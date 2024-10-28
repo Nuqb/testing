@@ -25,22 +25,22 @@ class WordDB:
         self.connection.commit()
 
     def getWords(self):
-        self.cursor.execute("SELECT * FROM words")
+        self.cursor.execute("SELECT * FROM favoritewords")
         return self.cursor.fetchall()
     
     def getWord(self, id):
         data = [id]
-        self.cursor.execute("SELECT * FROM words WHERE id = ?", data)
+        self.cursor.execute("SELECT * FROM favoritewords WHERE id = ?", data)
         return self.cursor.fetchone()
     
     def putWord(self, id, word, origin, definition):
         data = [word, origin, definition, id]
-        self.cursor.execute("UPDATE words SET word = ?, origin = ?, definition = ? WHERE id = ?", data)
+        self.cursor.execute("UPDATE favoritewords SET word = ?, origin = ?, definition = ? WHERE id = ?", data)
         self.connection.commit()
 
     def deleteWord(self, id):
         data = [id]
-        self.cursor.execute("DELETE FROM words WHERE id = ?", data)
+        self.cursor.execute("DELETE FROM favoritewords WHERE id = ?", data)
         self.connection.commit()
 
 # CREATE TABLE favoritewords (id INTEGER PRIMARY KEY, word TEXT, origin TEXT, definition TEXT);
