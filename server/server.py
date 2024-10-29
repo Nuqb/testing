@@ -42,6 +42,12 @@ def get_word():
     WORDS = db.getWords()
     return WORDS, 200, {"Access-Control-Allow-Origin": "*"}
 
+@app.route("/words/<int:word_id>", methods=["GET"])
+def get_word_by_id(word_id):
+    db = WordDB("words_db.db")
+    WORD = db.getWord(word_id)
+    return WORD, 200, {"Access-Control-Allow-Origin": "*"}
+
 @app.route("/words/<int:word_id>", methods=["DELETE"])
 def delete_word(word_id):
     db = WordDB("words_db.db")
@@ -50,6 +56,11 @@ def delete_word(word_id):
     else:
         db.deleteWord(word_id)
         return "Deleted", 200, {"Access-Control-Allow-Origin" : "*"}
+    
+@app.errorhandler(404)
+def page_not_found(e):
+    return {"error": "Resource not found"}, 404, {"Access-Control-Allow-Origin": "*"}
+
 
 def run():
     app.run(port=8080)

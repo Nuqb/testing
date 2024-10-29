@@ -36,7 +36,7 @@ function addTheWord(data) {
     }
 
     saveWordButton.onclick = function() {
-        let editData = "word="+encodeURIComponent(inputWord.value) + "&origin="+encodeURIComponent(inputLanguageOrigin.value) +"&definition="+encodeURIComponent(wordDefinition.value)
+        let editData = "word="+encodeURIComponent(inputWord.value) + "&origin="+encodeURIComponent(inputLanguageOrigin.value) +"&definition="+encodeURIComponent(inputWordDefinition.value)
 
         fetch(`http://localhost:8080/words/${editId}`, {
             method: "PUT",
@@ -50,7 +50,7 @@ function addTheWord(data) {
             loadWordsFromServer()
             inputWord.value = ""
             inputLanguageOrigin.value = ""
-            wordDefinition.value = ""
+            inputWordDefinition.value = ""
         })
     }
     deleteButton.onclick = function(){

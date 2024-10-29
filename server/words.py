@@ -43,4 +43,8 @@ class WordDB:
         self.cursor.execute("DELETE FROM favoritewords WHERE id = ?", data)
         self.connection.commit()
 
+    def close(self):
+        self.connection.close()
+
+
 # CREATE TABLE favoritewords (id INTEGER PRIMARY KEY, word TEXT, origin TEXT, definition TEXT);
