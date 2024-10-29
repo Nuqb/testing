@@ -89,6 +89,8 @@ function addNewWord() {
         
     }).then(function(response) {
         console.log("response", response);
+        clearLoadedWords();
+        loadWordsFromServer();
         inputWord.value = "";
         inputLanguageOrigin.value = "";
         inputWordDefinition.value = "";

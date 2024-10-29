@@ -45,8 +45,11 @@ def get_word():
 @app.route("/words/<int:word_id>", methods=["GET"])
 def get_word_by_id(word_id):
     db = WordDB("words_db.db")
-    WORD = db.getWord(word_id)
-    return WORD, 200, {"Access-Control-Allow-Origin": "*"}
+    if db.getWord(word_id) is None:
+        return f"word {word_id} Not found", 404, {"Access-Control-Allow-Origin" : "*"}
+    else:
+        db.getWord(word_id)
+        return "retrived", 200, {"Access-Control-Allow-Origin": "*"}
 
 @app.route("/words/<int:word_id>", methods=["DELETE"])
 def delete_word(word_id):
