@@ -8,13 +8,13 @@ Language Origin (string)
 Word Definition (string)
 
 Schema
-
+```sql
 CREATE TABLE favoritewords (
 id INTEGER PRIMARY KEY,
 word TEXT,
 origin TEXT,
 definition TEXT);
-
+```
 REST Endpoints
 
 Name/Method/Path
