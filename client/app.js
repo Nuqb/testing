@@ -38,7 +38,7 @@ function addTheWord(data) {
     saveWordButton.onclick = function() {
         let editData = "word="+encodeURIComponent(inputWord.value) + "&origin="+encodeURIComponent(inputLanguageOrigin.value) +"&definition="+encodeURIComponent(inputWordDefinition.value)
 
-        fetch(`http://localhost:8080/words/${editId}`, {
+        fetch(`http://flask-app-service:5000/words/${editId}`, {
             method: "PUT",
             body: editData,
             headers: {
@@ -57,7 +57,7 @@ function addTheWord(data) {
         if(confirm("Are you sure you want to delete the word?")){
 
             let deleteId = data["id"]
-            fetch(`http://localhost:8080/words/${deleteId}`, {
+            fetch(`http://flask-app-service:5000/words/${deleteId}`, {
             method: "DELETE",
             body: "",
             headers: {
@@ -80,7 +80,7 @@ function addNewWord() {
     let data = "word="+encodeURIComponent(inputWord.value) + "&origin="+encodeURIComponent(inputLanguageOrigin.value) +"&definition="+encodeURIComponent(inputWordDefinition.value);
 
     console.log(data)
-    fetch("http://localhost:8080/words", {
+    fetch("http://flask-app-service:5000/words", {
         method: "POST",
         body: data,
         headers: {
@@ -98,7 +98,7 @@ function addNewWord() {
 }
 
 function loadWordsFromServer() {
-    fetch("http://localhost:8080/words")
+    fetch("http://flask-app-service:5000/words")
         .then(function(response){
         response.json()
         .then(function(data){
