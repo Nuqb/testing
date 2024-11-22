@@ -1,6 +1,7 @@
 from flask import Flask, request
 from words import WordDB
 
+
 app = Flask(__name__)
 
 @app.route("/words/<int:word_id>", methods=["OPTIONS"])
