@@ -1,6 +1,7 @@
 from flask import Flask, request
 from words import WordDB
 
+
 app = Flask(__name__)
 
 @app.route("/words/<int:word_id>", methods=["OPTIONS"])
@@ -66,7 +67,7 @@ def page_not_found(e):
 
 
 def run():
-    app.run(port=8080)
+    app.run(host="0.0.0.0", port=8080, debug=True)
 
 if __name__ == "__main__":
     run()
